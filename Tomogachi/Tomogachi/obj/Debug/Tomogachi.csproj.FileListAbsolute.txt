@@ -1,0 +1,7 @@
+C:\Users\aznzl\Desktop\Github\Tomogachi\Tomogachi\Tomogachi\bin\Debug\Tomogachi.exe.config
+C:\Users\aznzl\Desktop\Github\Tomogachi\Tomogachi\Tomogachi\bin\Debug\Tomogachi.exe
+C:\Users\aznzl\Desktop\Github\Tomogachi\Tomogachi\Tomogachi\bin\Debug\Tomogachi.pdb
+C:\Users\aznzl\Desktop\Github\Tomogachi\Tomogachi\Tomogachi\obj\Debug\Tomogachi.csprojAssemblyReference.cache
+C:\Users\aznzl\Desktop\Github\Tomogachi\Tomogachi\Tomogachi\obj\Debug\Tomogachi.csproj.CoreCompileInputs.cache
+C:\Users\aznzl\Desktop\Github\Tomogachi\Tomogachi\Tomogachi\obj\Debug\Tomogachi.exe
+C:\Users\aznzl\Desktop\Github\Tomogachi\Tomogachi\Tomogachi\obj\Debug\Tomogachi.pdb

@@ -10,9 +10,10 @@ namespace Tomogachi
     {
         static void Main(string[] args)
         {
+            StartGame();
         }
 
-        public void StartGame()
+        static void StartGame()
         {
             Console.WriteLine("Chose name");
             var petName = Console.ReadLine();

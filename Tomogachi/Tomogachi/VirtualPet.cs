@@ -17,8 +17,33 @@ namespace Tomogachi
         public int CurrentHunger { get; set; } = 0;
         public int MaxHunger { get; set; }
         public virtual void StartLife() { }
-        protected virtual void Poop() { }
-        protected virtual void Fed() { }
+        protected virtual void Poop() {
+            if (Health < MaxHealth)
+            {
+                Health++;
+            }
+            Console.WriteLine("Pooping");
+
+        }
+        protected virtual void Fed() {
+            if (CurrentHunger <= 0)
+            {
+                Console.WriteLine("Too full to eat right now");
+                CurrentHunger = 0;
+
+            }
+            else
+            {
+                CurrentHunger = (CurrentHunger - 25) >= 0 ? (CurrentHunger - 25) : 0;
+                Console.WriteLine(Name + " is eating pet food..");
+                if (CurrentHunger > MaxHunger)
+                {
+                    Health -= 8;
+                    Console.WriteLine("Ouch I feel sick!");
+                }
+                Poop();
+            }
+        }
         protected virtual void PutToBed() { }
         protected virtual void SelfSleeping() { }
         protected virtual void ShowStats() { }

@@ -88,34 +88,8 @@ namespace Tomogachi
             }
 
         }
-        protected override void Poop()
-        {
-            if(Health < MaxHealth)
-            {
-                Health++;
-            }
-            Console.WriteLine("Pooping");
-        }
-        protected override void Fed()
-        {
-            if(CurrentHunger <= 0)
-            {
-                Console.WriteLine("Too full to eat right now");
-                CurrentHunger = 0;
- 
-            }
-            else
-            {
-                CurrentHunger = (CurrentHunger - 25) >= 0 ? (CurrentHunger - 25) : 0;
-                Console.WriteLine(Name + " is eating pet food..");
-                if (CurrentHunger > MaxHunger)
-                {
-                    Health -= 8;
-                    Console.WriteLine("Ouch I feel sick!");
-                }
-                Poop();
-            }
-        }
+
+
 
         protected override void PutToBed()
         {

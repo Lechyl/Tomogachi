@@ -6,18 +6,29 @@ using System.Threading.Tasks;
 
 namespace Tomogachi
 {
-    abstract class VirtualPet
+    abstract class StandardPet
     {
         public string Name { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
-
+        public int CurrentHappiness { get; set; } = 0;
+        public int MaxHappiness { get; set; }
         public int FallAsleepLevel { get; set; }
         public int CurrentSleepLevel { get; set; } = 0;
         public int CurrentHunger { get; set; } = 0;
         public int MaxHunger { get; set; }
         public virtual void StartLife() { }
-        protected virtual void Poop() {
+        public virtual void Play() 
+        {
+            Console.WriteLine($"Playing with {Name}");
+            Console.WriteLine($"{Name} is now happy");
+            CurrentHappiness = (CurrentHappiness - 10) < 0 ? 0 : CurrentHappiness - 10;
+            CurrentHunger = CurrentHunger + 10 > MaxHunger ? MaxHunger : CurrentHunger + 3;
+
+        }
+
+        protected virtual void Poop()
+        {
             if (Health < MaxHealth)
             {
                 Health++;
@@ -25,7 +36,8 @@ namespace Tomogachi
             Console.WriteLine("Pooping");
 
         }
-        protected virtual void Fed() {
+        protected virtual void Fed()
+        {
             if (CurrentHunger <= 0)
             {
                 Console.WriteLine("Too full to eat right now");
@@ -44,7 +56,18 @@ namespace Tomogachi
                 Poop();
             }
         }
-        protected virtual void PutToBed() { }
+        protected virtual void PutToBed()
+        {
+            CurrentSleepLevel = 0;
+            Health += 5;
+            if (Health > MaxHealth)
+            {
+                Health = MaxHealth;
+            }
+            CurrentHunger += 15;
+
+            Console.WriteLine("I think I'll sleep now");
+        }
         protected virtual void SelfSleeping() { }
         protected virtual void ShowStats() { }
         protected virtual void Aging() { }

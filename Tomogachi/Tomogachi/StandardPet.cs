@@ -17,7 +17,6 @@ namespace Tomogachi
         public int CurrentSleepLevel { get; set; } = 0;
         public int CurrentHunger { get; set; } = 0;
         public int MaxHunger { get; set; }
-        public virtual void StartLife() { }
         public virtual void Play() 
         {
             Console.WriteLine($"Playing with {Name}");
@@ -68,10 +67,22 @@ namespace Tomogachi
 
             Console.WriteLine("I think I'll sleep now");
         }
-        protected virtual void SelfSleeping() { }
-        protected virtual void ShowStats() { }
-        protected virtual void Aging() { }
+        protected virtual void SelfSleeping() {
 
+            if (CurrentSleepLevel >= FallAsleepLevel)
+            {
+                Console.WriteLine($"{Name} is to tired and fell asleep ..");
+
+                PutToBed();
+            }
+        }
+
+        public virtual void StartLife() { }
+
+        protected virtual void ShowStats() { 
+        
+        }
+        protected virtual void Aging() { }
 
 
     }

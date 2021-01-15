@@ -15,10 +15,25 @@ namespace Tomogachi
 
         static void StartGame()
         {
+            Console.WriteLine("Chose pet [cat] [dog]");
+            string chosenPet = Console.ReadLine();
             Console.WriteLine("Chose name");
             var petName = Console.ReadLine();
-            DogPet dogPet = new DogPet(petName);
-            dogPet.StartLife();
+            switch (chosenPet)
+            {
+                case "cat":
+                    CatPet catPet = new CatPet(petName);
+                    catPet.StartLife();
+                    break;
+                case "dog":
+                    DogPet dogPet = new DogPet(petName);
+                    dogPet.StartLife();
+                    break;
+                default:
+                    break;
+            }
+
+
             
         }
     }

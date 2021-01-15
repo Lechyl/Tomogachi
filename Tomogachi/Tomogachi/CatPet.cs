@@ -7,24 +7,26 @@ using System.Timers;
 
 namespace Tomogachi
 {
-    class DogPet : StandardPet
+    class CatPet : StandardPet
     {
 
-        private enum AgingStage { Infant, Teen, Adult, Eldery }
-        private AgingStage PetAgingState;
-        private static Timer aTimer;
-        private static Timer bTimer;
+        private enum AgingStage { Infant,Teen,Adult,Eldery}
+        private AgingStage PetAge { get; set; }
+        private static Timer timerBasicNeeds;
+        private static Timer timerAging;
 
-        public DogPet(string name)
+        public CatPet(string name)
         {
+            
             Name = name;
             Health = 100;
             MaxHealth = 100;
             MaxHunger = 100;
             MaxHappiness = 100;
             FallAsleepLevel = 100;
-            PetAgingState = AgingStage.Infant;
+            PetAge = AgingStage.Infant;
         }
+
         public override void StartLife()
         {
             SetTimerBasicNeeds();
@@ -53,12 +55,14 @@ namespace Tomogachi
                 Console.WriteLine("press enter to continue....");
                 Console.ReadLine();
             }
-            Console.WriteLine("Your Dog Pet have died.. Try again");
+            Console.WriteLine("Your Cat Pet have died.. Try again");
             Console.ReadLine();
-            bTimer.Stop();
-            bTimer.Dispose();
-            aTimer.Stop();
-            aTimer.Dispose();
+            timerBasicNeeds.Stop();
+            timerBasicNeeds.Dispose();
+            timerAging.Stop();
+            timerAging.Dispose();
+
+            Console.ReadLine();
         }
         protected override void ShowStats()
         {
@@ -69,58 +73,39 @@ namespace Tomogachi
             Console.WriteLine($"Happiness: {CurrentHappiness}/{MaxHappiness}");
             Console.WriteLine($"Hunger: {CurrentHunger}/{MaxHunger}");
             Console.WriteLine($"Sleep: {CurrentSleepLevel}/{FallAsleepLevel}");
-            Console.WriteLine($"Age: {PetAgingState}");
-
+            Console.WriteLine($"Age: {PetAge}");
         }
+
         protected override void Aging()
         {
-            if (PetAgingState != AgingStage.Eldery)
+            //according to myth a cat has 9 lives. My cat is immortal.
+            int nextPetAge = ((int)PetAge + 1) % 4;
+            PetAge = (AgingStage)nextPetAge;
+            if(PetAge == AgingStage.Infant)
             {
-                PetAgingState++;
-
-                MaxHealth -= 25;
-                if (Health > MaxHealth)
-                {
-                    Health = MaxHealth;
-                }
-                Console.WriteLine("I'm getting older");
-            }
-            else
-            {
-                Health = 0;
-                Console.WriteLine(Name + " has growing too old.. he/she died");
-
-            }
-
-        }
-
-        protected override void SelfSleeping()
-        {
-            if (CurrentSleepLevel >= FallAsleepLevel)
-            {
-                Console.WriteLine($"{Name} is to tired and fell asleep ..");
-
-                PutToBed();
+                Console.WriteLine($"{Name} has been reborn with the magical symtom of 9 lives");
             }
         }
+
         private void SetTimerBasicNeeds()
         {
             // Create a timer with a two second interval.
-            aTimer = new Timer(10000);
+            timerBasicNeeds = new Timer(10000);
             // Hook up the Elapsed event for the timer. 
-            aTimer.Elapsed += BasicNeeds;
-            aTimer.AutoReset = true;
-            aTimer.Enabled = true;
+            timerBasicNeeds.Elapsed += BasicNeeds;
+            timerBasicNeeds.AutoReset = true;
+            timerBasicNeeds.Enabled = true;
         }
         private void SetTimerAging()
         {
             // Create a timer with a two second interval.
-            bTimer = new Timer(60000);
+            timerAging = new Timer(60000);
             // Hook up the Elapsed event for the timer. 
-            bTimer.Elapsed += AgeTimer;
-            bTimer.AutoReset = true;
-            bTimer.Enabled = true;
+            timerAging.Elapsed += Age;
+            timerAging.AutoReset = true;
+            timerAging.Enabled = true;
         }
+
         private void BasicNeeds(Object source, ElapsedEventArgs e)
         {
             CurrentHunger = CurrentHunger + 3 > MaxHunger ? MaxHunger : CurrentHunger + 3;
@@ -131,10 +116,8 @@ namespace Tomogachi
             ShowStats();
             SelfSleeping();
             Console.WriteLine("press enter to continue....");
-
-
         }
-        private void AgeTimer(Object source, ElapsedEventArgs e)
+        private void Age(Object source, ElapsedEventArgs e)
         {
             Aging();
         }
